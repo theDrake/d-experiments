@@ -3,12 +3,9 @@
 /******************************************************************************
   command_line.d
 
-  To compile:
-    dmd command_line.d
-  To optimize:
-    dmd -O -inline -release command_line.d
-  To get generated documentation:
-    dmd command_line.d -D
+  To compile: dmd command_line.d
+  To optimize: dmd -O -inline -release command_line.d
+  To get generated documentation: dmd command_line.d -D
 ******************************************************************************/
 
 import std.stdio;
@@ -20,22 +17,17 @@ void main(char[][] args) {
     writefln(cl.argnum, cl.suffix, " arg: %s", cl.argv);
     delete cl;
   }
-
   struct specs {
     int count, allocated;
   }
-
   specs argspecs(char[][] args)
-
   in {
     assert(args.length > 0);
   }
-
   out(result) {
     assert(result.count == CmdLin.total);
     assert(result.allocated > 0);
   }
-
   body {
     specs *s = new specs;
     s.count = args.length;
@@ -46,8 +38,6 @@ void main(char[][] args) {
 
     return *s;
   }
-
-  // built-in string and common string operations, e.g. '~' is concatenate.
   char[] argcmsg = "argc = %d";
   char[] allocmsg = "allocated = %d";
   writefln(argcmsg ~ ", " ~ allocmsg, argspecs(args).count,
